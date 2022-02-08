@@ -1,12 +1,13 @@
 <?php
 
+use App\Models\PlantTreeTransaction;
 use App\Models\Tree;
 use App\Models\TreeOwning;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTreeOwningTreeTable extends Migration
+class CreateTransactionTreeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,11 +16,10 @@ class CreateTreeOwningTreeTable extends Migration
      */
     public function up()
     {
-        Schema::create('tree_owning_tree', function (Blueprint $table) {
-            $table->foreignIdFor(TreeOwning::class)->references('id')->on('tree_ownings')->onDelete('cascade');
+        Schema::create('transaction_tree', function (Blueprint $table) {
+            $table->foreignIdFor(PlantTreeTransaction::class)->references('id')->on('plant_tree_transactions')->onDelete('cascade');
             $table->foreignIdFor(Tree::class)->references('id')->on('trees')->onDelete('cascade');
-
-            $table->primary(['tree_owning_id','tree_id']);
+            $table->primary(['plant_tree_transaction_id','tree_id']);
         });
     }
 
@@ -30,6 +30,6 @@ class CreateTreeOwningTreeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tree_owning_tree');
+        Schema::dropIfExists('transaction_tree');
     }
 }

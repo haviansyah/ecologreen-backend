@@ -8,6 +8,9 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Controllers\Controller;
 use App\Models\TreeSpecies;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Route;
+use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
 
 class TreeSpeciesController extends BaseAdminController
 {
@@ -21,6 +24,7 @@ class TreeSpeciesController extends BaseAdminController
 
     public function index(TreeSpeciesDataTable $dataTable)
     {
+     
         return $dataTable->render('admin.tanam-pohon.tree-species.index');
     }
 }

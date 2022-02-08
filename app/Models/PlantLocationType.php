@@ -18,6 +18,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|PlantLocationType whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|PlantLocationType whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $name
+ * @method static \Illuminate\Database\Eloquent\Builder|PlantLocationType whereName($value)
  */
 class PlantLocationType extends Model
 {

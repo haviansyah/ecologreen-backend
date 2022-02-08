@@ -17,6 +17,7 @@ class CreateTreesTable extends Migration
     {
         Schema::create('trees', function (Blueprint $table) {
             $table->id();
+            $table->char('tree_id',8);
             $table->foreignIdFor(TreeSpecies::class)->references('id')->on('tree_species')->onDelete('cascade');
             $table->double('lon',9,6);
             $table->double('lat',9,6);

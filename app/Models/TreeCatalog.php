@@ -26,6 +26,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @method static \Illuminate\Database\Eloquent\Builder|TreeCatalog whereTreeSpeciesId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TreeCatalog whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $status
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\File[] $image
+ * @property-read int|null $image_count
+ * @property-read \App\Models\PlantLocation $plantLocation
+ * @property-read \App\Models\TreeSpecies $treeSpecies
+ * @method static \Illuminate\Database\Eloquent\Builder|TreeCatalog whereStatus($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\File[] $images
+ * @property-read int|null $images_count
+ * @method static \Database\Factories\TreeCatalogFactory factory(...$parameters)
  */
 class TreeCatalog extends Model
 {
@@ -54,11 +63,11 @@ class TreeCatalog extends Model
     }
 
     /**
-     * The image that belong to the TreeCatalog
+     * The images that belong to the TreeCatalog
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function image(): BelongsToMany
+    public function images(): BelongsToMany
     {
         return $this->belongsToMany(File::class, 'tree_catalog_images', 'tree_catalog_id', 'file_id');
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\BankAccount;
 use App\Models\File;
 use App\Models\PlantTreeTransaction;
 use Illuminate\Database\Migrations\Migration;
@@ -21,6 +22,7 @@ class CreatePaymentConfirmationsTable extends Migration
             $table->double('payment_total',20,2);
             $table->date('transaction_date');
             $table->text('note')->nullable();
+            $table->foreignIdFor(BankAccount::class)->references('id')->on('bank_accounts')->onDelete('cascade');
             $table->foreignIdFor(File::class)->nullable()->references('id')->on('files')->onDelete('cascade');
             $table->timestamps();
         });

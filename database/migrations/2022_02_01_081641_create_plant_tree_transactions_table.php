@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\PaymentMethod;
 use App\Models\PaymentStatus;
 use App\Models\TreeCatalog;
 use App\Models\User;
@@ -24,6 +25,8 @@ class CreatePlantTreeTransactionsTable extends Migration
             $table->integer('quantity');
             $table->double('unit_price',20,2);
             $table->integer('unique_code');
+
+            $table->foreignIdFor(PaymentMethod::class)->references('id')->on('payment_methods')->onDelete('cascade');
             $table->foreignIdFor(PaymentStatus::class)->references('id')->on('payment_statuses')->onDelete('cascade');
 
             $table->timestamps();

@@ -5,7 +5,7 @@ $config = [
     'placeholder' => 'Select Plant Location Type',
 ];
 @endphp
-<x-adminlte-select2 required name="plant_location_type_id" :config="$config" label='Plant Location Type'>
+<x-adminlte-select2 required name="plant_location_type_id" id="plant_location_type_id{{isset($edit) ? '_edit' : ''}}" :config="$config" label='Plant Location Type'>
     <option></option>
     @foreach (\App\Models\PlantLocationType::all() as $cp)
         <option value="{{ $cp->id }}">{{ $cp->name }}</option>

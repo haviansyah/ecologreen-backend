@@ -26,4 +26,9 @@ use Illuminate\Database\Eloquent\Model;
 class PaymentStatus extends Model
 {
     use HasFactory;
+
+    const WAITING = 1;
+    const PENDING = 2;
+    const CANCELED = 3;
+    const APPROVED = 4;
 }

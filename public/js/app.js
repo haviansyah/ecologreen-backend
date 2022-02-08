@@ -43,6 +43,10 @@ function generateSumFooter(api) {
 }
 
 $(function () {
+    $.ajaxSetup({
+        headers:
+        { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+    });
     Inputmask.extendAliases({
         rupiah: {
             prefix: "Rp ",
@@ -57,6 +61,10 @@ $(function () {
     bsCustomFileInput.init();
 
     $("[data-rupiah]").inputmask({ "alias": "rupiah" });
+
+    $('form').on('submit', function(){
+        blockPage();
+    });
 });
 
 function rupiahToInt(rupiah) {
@@ -79,7 +87,7 @@ Number.prototype.toRupiah = function (n, x) {
 
 function blockPage() {
     $.blockUI({
-        message: "<h3>Please wait </h3> Don't refresh or close page !",
+        message: "<img src='/images/typing.svg' class='mb-5'></img><h3>Please wait </h3> Don't refresh or close page !",
         baseZ: 2000,
         css: {
             color: 'white',
@@ -135,3 +143,4 @@ $(document).on('click', "button[warning]", function (e, from) {
     }
 
 })
+

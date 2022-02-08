@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\Profile
@@ -30,8 +31,24 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Profile whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Profile whereUserId($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\File|null $picture
  */
 class Profile extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
+    protected $casts = [
+        'birthday' => 'date'
+    ];
+
+    /**
+     * Get the picture that owns the Profile
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function picture(): BelongsTo
+    {
+        return $this->belongsTo(File::class, 'picture_file_id', 'id');
+    }
 }

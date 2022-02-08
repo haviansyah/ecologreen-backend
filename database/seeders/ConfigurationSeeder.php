@@ -17,12 +17,16 @@ class ConfigurationSeeder extends Seeder
         
         $data = [
             [
-                'configuration_title' => 'app_name',
+                'configuration_title' => Configuration::APP_NAME,
                 'configuration_value' => 'EcoLoGreen',
             ],
             [
-                'configuration_title' => 'app_version',
+                'configuration_title' => Configuration::APP_VERSION,
                 'configuration_value' => '1.0.1',
+            ],
+            [
+                'configuration_title' => Configuration::APP_VERSION_NUMBER,
+                'configuration_value' => 1,
             ],
         ];
 

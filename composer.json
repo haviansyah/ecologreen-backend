@@ -8,12 +8,14 @@
         "php": "^7.3|^8.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "intervention/image": "^2.7",
         "jeroennoten/laravel-adminlte": "^3.7",
         "laravel/framework": "^8.75",
         "laravel/passport": "^10.3",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
+        "williamcruzme/laravel-fcm": "^1.0",
         "yajra/laravel-datatables": "^1.5"
     },
     "require-dev": {
@@ -35,7 +37,10 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        }
+        },
+        "files" : [
+            "app/Http/Helpers/EcoHelper.php"
+        ]
     },
     "scripts": {
         "post-autoload-dump": [
@@ -50,6 +55,11 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "fresh-dev": [
+            "@php artisan migrate:fresh",
+            "@php artisan db:seed --class=DatabaseSeederDev",
+            "@php artisan passport:install"
         ]
     },
     "extra": {

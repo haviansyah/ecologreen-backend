@@ -36,6 +36,9 @@
         <link rel="stylesheet" href="{{ mix(config('adminlte.laravel_mix_css_path', 'css/app.css')) }}">
     @endif
 
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+
     {{-- Livewire Styles --}}
     @if(config('adminlte.livewire'))
         @if(app()->version() >= 7)
@@ -104,7 +107,11 @@
     {{-- Custom Scripts --}}
     <script src="{{ asset('js/app.js?v12') }}"></script>
 
+    @auth
+        <script src="{{ asset('js/fcm.js?v12') }}" type="module"></script>
+    @endauth
     @yield('adminlte_js')
+
 
 </body>
 

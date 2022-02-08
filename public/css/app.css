@@ -1,0 +1,147 @@
+.login-page, .register-page {
+    background-color: var(--green)!important;
+}
+
+.navbar-dark{
+    border-color: transparent!important;
+}
+
+.navbar-nav>.user-menu>.dropdown-menu{
+    border-radius: 0.4rem;
+    border: none;
+}
+
+.navbar-nav>.user-menu>.dropdown-menu > li > .dropdown-item{
+    padding: 0.9rem 1.5rem;
+    display: flex;
+    align-content: center;
+    align-items: center;
+}
+
+.navbar-nav>.user-menu>.dropdown-menu > li > a > i {
+    margin-right: 0.9rem;
+    color: var(--green);
+    background-color: rgba(40, 167, 69,0.15);
+    display: inline-flex;
+    border-radius: 0.5rem;
+    vertical-align: middle;
+    width: 30px;
+    height: 30px;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.navbar-nav>.user-menu>.dropdown-menu > li > a > i.text-red{
+    background-color: rgba(167, 40, 40, 0.15);
+}
+
+#home-page .btn-app {
+    width: 120px;
+    height: 120px;
+    border-radius: 0.8rem;
+    border: none;
+    color: #0e5c20;
+    background-color: #fff;
+    box-shadow: 0px 4px 6px 0px rgb(0 0 0 / 5%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: bold;
+}
+
+#home-page .h5{
+    margin-bottom: 4rem !important;
+}
+
+#home-page .btn-app:hover{
+    opacity: 0.7;
+    box-shadow: 0px 4px 10px 0px rgb(0 0 0 / 0%);
+}
+
+#home-page .btn-app>.fas {
+    height: 40px;
+    font-size: 30px !important;
+}
+
+/* 
+    ====================
+    Table Borderless
+    ====================
+*/
+.table-borderless tbody {
+    padding: 1rem;
+}
+
+.table-borderless thead > tr {
+    color: white;
+}
+
+.table-borderless thead th {
+    background-color: var(--green);
+    box-shadow: 0px 4px 6px rgb(76 167 70 / 45%);
+    
+}
+.table-borderless thead th:first-child {
+  border-radius: 0.4rem 0 0 0.4rem;
+}
+.table-borderless thead th:last-child {
+  border-radius: 0 0.4rem 0.4rem 0;
+}
+
+/* remove border from th... */
+/* !important is only required in stack snippet, probably not in your production code */
+
+.table-borderless > thead > tr > th {
+  border: none !important;
+}
+
+.table-borderless > tbody > tr > td {
+    vertical-align: middle!important;
+}
+
+/* remove border from first tbody row... */
+.table-borderless > tbody > tr:first-child > td,
+.table-borderless > tbody > tr:first-child > th {
+  border-top: none;
+}
+
+
+/* 
+    =======================
+           PAGINATION
+    =======================
+*/
+
+.pagination > li > a
+{
+    border: none;
+    background-color: white;
+    color: var(--green);
+    border-radius: 0.5rem;
+}
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover
+{
+    color: var(--green);
+    background-color: #eee;
+    border-color: #ddd;
+}
+
+.pagination > .active > a
+{
+    color: white;
+    background-color: var(--green) !Important;
+    border: solid 1px var(--green) !Important;
+    box-shadow: 0px 4px 6px rgb(76 167 70 / 45%);
+}
+
+.pagination > .active > a:hover
+{
+    background-color: var(--green) !Important;
+    border: solid 1px var(--green);
+}

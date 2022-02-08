@@ -47,18 +47,11 @@ class CanopyShapeDataTable extends DataTable
             ->parameters([
                 "responsive" => true
             ])
+            ->setTableAttribute('class','table table-borderless table-hover')
             ->setTableId('tanampohoncanopyshapecontroller-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->dom('Bfrtip')
-
-            ->buttons(
-                Button::make('create'),
-                Button::make('export'),
-                Button::make('print'),
-                Button::make('reset'),
-                Button::make('reload')
-            );
+            ->dom('frtip');
     }
 
     /**

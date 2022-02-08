@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\TreeSpecies
@@ -30,10 +31,23 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|TreeSpecies whereSequestration($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TreeSpecies whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string|null $about
+ * @method static \Illuminate\Database\Eloquent\Builder|TreeSpecies whereAbout($value)
+ * @property-read \App\Models\CanopyShape $canopyShape
  */
 class TreeSpecies extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
+
+    /**
+     * Get the canopyShape that owns the TreeSpecies
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function canopyShape(): BelongsTo
+    {
+        return $this->belongsTo(CanopyShape::class);
+    }
 }

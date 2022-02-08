@@ -10,10 +10,13 @@
                 <h1>@section('title') @parent @show</h1>
             </div>
             <div class="col-sm-6">
+                @if(!View::getSection('no_create',false))
                 <div class="float-sm-right">
                     <button class="btn btn-success shadow" data-toggle="modal" data-target="#modalCreate"><i
                             class="fas fa-plus mr-2"></i> Create</button>
                 </div>
+                @endif
+
             </div>
         </div>
     </div><!-- /.container-fluid -->
@@ -39,7 +42,7 @@
     </button> --}}
 
     <!-- Modal -->
-    <x-adminlte-modal id="modalCreate" isForm="true" title="Create New {{ View::getSection('title') }}" theme="success"
+    <x-adminlte-modal id="modalCreate" size="lg" isForm="true" title="Create New {{ View::getSection('title') }}" theme="success"
         icon="fas fa-plus">
         @csrf
         @include(View::getSection('input-form'))
@@ -54,14 +57,14 @@
 
     </x-adminlte-modal>
 
-    <x-adminlte-modal id="modalEdit" isForm="true" title="Edit {{ View::getSection('title') }}" theme="success"
+    <x-adminlte-modal id="modalEdit" size="lg" isForm="true" title="Edit {{ View::getSection('title') }}" theme="success"
         icon="fas fa-plus">
         <x-slot name="formSlot">
             <form method="POST">
                 @method('PUT')
                 @csrf
         </x-slot>
-        @include(View::getSection('input-form'))
+        @include(View::getSection('input-form'),['edit' => true])
         <x-slot name="footerSlot">
             <x-adminlte-button theme="success" type="submit" label="Save" />
             <x-adminlte-button theme="default" label="Dismiss" data-dismiss="modal" />
@@ -86,8 +89,8 @@
             $(document).on('click', '.crud-edit-button', function() {
                 var id = $(this).data('id');
                 var editUrl = '{{ route(View::getSection('route') . '.index') }}/' + id + '/edit';
-                var putUrl = '{{ route(View::getSection('route') . '.index') }}/' + id ;
-                modalEditForm.attr('action',putUrl)
+                var putUrl = '{{ route(View::getSection('route') . '.index') }}/' + id;
+                modalEditForm.attr('action', putUrl)
                 $.ajax({
                     url: editUrl,
                     headers: {
@@ -98,12 +101,21 @@
                         model_data = response;
                         for (const [key, value] of Object.entries(model_data)) {
                             var input = modalEdit.find(`[name=${key}]`);
-                            console.log(input);
-                            
+                           
+
                             if (input != null) {
-                                $(input).val(value);
+                                if (input.length > 1) {
+                                    var button = modalEdit.find(`[value=${value}]`);
+                                    button.trigger('click');                                
+                                } else {
+                                    $(input).val(value).trigger('change');;
+                                }
                             }
                         }
+                        // Dispatch Event
+                        const event = new CustomEvent('eco.crud.ajax', { "detail": response });
+                        document.dispatchEvent(event);
+                        
                         modalEdit.modal('toggle');
                     }
                 });

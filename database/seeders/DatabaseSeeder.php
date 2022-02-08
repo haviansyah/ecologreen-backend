@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             AdminUserSeeder::class,
             CanopyShapeSeeder::class,
+            PlantLocationTypeSeeder::class,
         ]);
     }
 }

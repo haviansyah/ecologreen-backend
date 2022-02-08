@@ -107,7 +107,7 @@ return [
     'classes_auth_body' => '',
     'classes_auth_footer' => '',
     'classes_auth_icon' => '',
-    'classes_auth_btn' => 'btn-flat btn-success',
+    'classes_auth_btn' => 'shadow btn-success',
 
     /*
     |--------------------------------------------------------------------------
@@ -192,8 +192,8 @@ return [
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => false,
-    'password_reset_url' => false,
-    'password_email_url' => false,
+    'password_reset_url' => 'password/reset',
+    'password_email_url' => 'password/email',
     'profile_url' => false,
 
     /*
@@ -227,65 +227,23 @@ return [
     'menu' => [
         // Navbar items:
         [
-            'type'         => 'navbar-search',
-            'text'         => 'search',
-            'topnav_right' => true,
-        ],
-
-        [
-            'text'         => 'Ubah Password',
-            'url'          => 'admin/pages',
-            'icon'        =>   'fas fa-fw fa-lock',
-            'topnav_user' => true,
-
-        ],
-        [
             'type'         => 'fullscreen-widget',
             'topnav_right' => true,
         ],
 
-        // Sidebar items:
-        // [
-        //     'type' => 'sidebar-menu-search',
-        //     'text' => 'search',
-        // ],
-        // [
-        //     'text' => 'blog',
-        //     'url'  => 'admin/blog',
-        //     'can'  => 'manage-blog',
-        // ],
-        // [
-        //     'text'        => 'pages',
-        //     'url'         => 'admin/pages',
-        //     'icon'        => 'far fa-fw fa-file',
-        //     'label'       => 4,
-        //     'label_color' => 'success',
-        // ],
-        'TANAM POHON',
         [
-            'text' => 'Master Data',
-            'icon' => 'fas fa-fw fa-database',
-            'submenu' => [
-                [
-                    'text' => 'Tree Species',
-                    'route'  => 'tree-species.index',
-                ],
-                [
-                    'text' => 'Canopy Shape',
-                    'route'  => 'canopy-shape.index',
-                ],
-                [
-                    'text' => 'Plant Location',
-                    'route'  => 'plant-location.index',
-                ],
-                [
-                    'text' => 'Plant Location Type',
-                    'route'  => 'plant-location-type.index',
-                ],
-            ]
+            'type'         => 'navbar-notification',
+            'id'           => 'my-notification',
+            'icon'         => 'fas fa-bell',
+            'url'         => 'notifications/show',
+            'topnav_right' => true,
+            'dropdown_mode'   => true,
+            'dropdown_flabel' => 'All notifications',
+            'update_cfg'   => [
+                'route' => 'notifications.get',
+                'period' => 2,
+            ],
         ],
-       
-       
     ],
 
     /*
@@ -324,17 +282,27 @@ return [
 
     'plugins' => [
         'Datatables' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables/js/jquery.dataTables.min.js',
                 ],
                 [
                     'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables/js/dataTables.bootstrap4.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables-plugins/responsive/js/dataTables.responsive.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables-plugins/responsive/js/responsive.bootstrap4.min.js',
                 ],
                 [
                     'type' => 'js',
@@ -343,9 +311,60 @@ return [
                 ],
                 [
                     'type' => 'css',
-                    'asset' => false,
-                    'location' => '//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css',
+                    'asset' => true,
+                    'location' => 'vendor/datatables/css/dataTables.bootstrap4.min.css',
                 ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/datatables-plugins/responsive/css/responsive.bootstrap4.min.css',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => '//cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/datatables-plugins/buttons/css/buttons.bootstrap4.min.css',
+                ],
+
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/datatables-plugins/fixedcolumns/css/fixedColumns.bootstrap4.min.css',
+                ],[
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables-plugins/fixedcolumns/js/dataTables.fixedColumns.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables-plugins/fixedcolumns/js/fixedColumns.bootstrap4.min.js',
+                ],
+
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/datatables-plugins/fixedheader/css/fixedHeader.bootstrap4.min.css',
+                ],[
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables-plugins/fixedheader/js/dataTables.fixedHeader.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables-plugins/fixedheader/js/fixedHeader.bootstrap4.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables-plugins/buttons/js/dataTables.buttons.min.js',
+                ],
+            
             ],
         ],
         'bsCustomFileInput' => [

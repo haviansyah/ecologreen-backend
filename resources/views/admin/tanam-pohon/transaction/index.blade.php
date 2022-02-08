@@ -1,0 +1,5 @@
+@extends('layouts.crud.index')
+@section('title','Order')
+@section('route','transaction')
+@section('input-form','admin.tanam-pohon.transaction.input')
+@section('no_create',true)

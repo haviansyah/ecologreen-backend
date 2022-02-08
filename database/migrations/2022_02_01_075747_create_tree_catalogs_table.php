@@ -20,6 +20,7 @@ class CreateTreeCatalogsTable extends Migration
             $table->foreignIdFor(TreeSpecies::class)->references('id')->on('tree_species')->onDelete('cascade');
             $table->foreignIdFor(PlantLocation::class)->references('id')->on('plant_locations')->onDelete('cascade');
             $table->double('price',20,2);
+            $table->enum('status',['PUBLISH','DRAFT'])->default('DRAFT');
             $table->timestamps();
         });
     }

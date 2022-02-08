@@ -1,0 +1,5 @@
+@extends('layouts.crud.index')
+@section('title','Payment Confirmation')
+@section('route','payment-confirmation')
+@section('input-form','admin.tanam-pohon.payment-confirmation.input')
+@section('no_create',true)

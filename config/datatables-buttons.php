@@ -57,7 +57,7 @@ return [
      * Default html builder parameters.
      */
     'parameters'    => [
-        'dom'     => 'Bfrtip',
+        'dom'     => 'frtip',
         'order'   => [[0, 'desc']],
         'buttons' => [
             'create',
@@ -66,6 +66,10 @@ return [
             'reset',
             'reload',
         ],
+        'parameters' => [
+            "responsive" => true
+        ],
+        'setTableAttribute' => ['width', '100%'],
     ],
 
     /*
@@ -85,6 +89,6 @@ return [
         /*
          * Default DOM to generate when not set.
          */
-        'dom' => 'Bfrtip',
+        'dom' => 'frtip',
     ],
 ];

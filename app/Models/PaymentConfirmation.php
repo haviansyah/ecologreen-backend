@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\PaymentConfirmation
@@ -28,8 +29,33 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|PaymentConfirmation whereTransactionDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|PaymentConfirmation whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int $bank_account_id
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentConfirmation whereBankAccountId($value)
  */
 class PaymentConfirmation extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
+
+    /**
+     * Get the transaction that owns the PaymentConfirmation
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function transaction(): BelongsTo
+    {
+        return $this->belongsTo(PlantTreeTransaction::class,'plant_tree_transaction_id');
+    }
+
+    /**
+     * Get the bankAccount that owns the PaymentConfirmation
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function bankAccount(): BelongsTo
+    {
+        return $this->belongsTo(BankAccount::class, 'bank_account_id');
+    }
+
 }

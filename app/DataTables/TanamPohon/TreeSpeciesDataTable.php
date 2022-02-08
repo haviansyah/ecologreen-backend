@@ -48,18 +48,11 @@ class TreeSpeciesDataTable extends DataTable
             ->parameters([
                 "responsive" => true
             ])
+            ->setTableAttribute('class','table table-borderless ')
             ->setTableId('tanampohontreespecies-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->dom('Bfrtip')
-
-            ->buttons(
-                Button::make('create'),
-                Button::make('export'),
-                Button::make('print'),
-                Button::make('reset'),
-                Button::make('reload')
-            );
+            ->dom('frtip');
     }
 
     /**

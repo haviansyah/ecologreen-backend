@@ -2,12 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Laravel\Passport\HasApiTokens;
+use williamcruzme\FCM\Traits\HasDevices;
 
 /**
  * App\Models\User
@@ -40,10 +45,20 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRoleId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Client[] $clients
+ * @property-read int|null $clients_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\williamcruzme\FCM\Device[] $devices
+ * @property-read int|null $devices_count
+ * @property-read \App\Models\Profile|null $profile
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Tree[] $trees
+ * @property-read int|null $trees_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\PlantTreeTransaction[] $transactions
+ * @property-read int|null $transactions_count
+ * @property-read mixed $treess
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasDevices;
 
     /**
      * The attributes that are mass assignable.
@@ -85,5 +100,48 @@ class User extends Authenticatable
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
+    }
+
+    /**
+     * Get the profile associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function profile(): HasOne
+    {
+        return $this->hasOne(Profile::class);
+    }
+
+    /**
+     * Get all of the trees for the User
+     *
+
+     */
+    public function trees()
+    {
+        return Tree::join('transaction_tree', 'trees.id', '=', 'transaction_tree.tree_id')
+            ->join('plant_tree_transactions', 'plant_tree_transactions.id', '=', 'transaction_tree.plant_tree_transaction_id')
+            ->join('users', 'users.id', '=', 'plant_tree_transactions.user_id')
+            ->select('trees.*')
+            ->where('users.id', $this->id);
+    }
+
+    public function getTreesAttribute()
+    {
+        if (!$this->relationLoaded('transactions') || !$this->transactions->first()->relationLoaded('trees')) {
+            $this->load('transactions.trees');
+        }
+
+        return collect($this->transactions->pluck('trees'))->collapse()->unique();
+    }
+
+    /**
+     * Get all of the transactions for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(PlantTreeTransaction::class);
     }
 }

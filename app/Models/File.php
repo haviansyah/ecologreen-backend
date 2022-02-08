@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Helpers\FileHelper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -34,4 +35,39 @@ class File extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function unsetTemporary(){
+        $this->is_temporary = false;
+        $this->save();
+        return $this;
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        self::creating(function($model){
+            // ... code here
+        });
+
+        self::created(function($model){
+            // ... code here
+        });
+
+        self::updating(function($model){
+            // ... code here
+        });
+
+        self::updated(function($model){
+            // ... code here
+        });
+
+        self::deleting(function($model){
+            // ... code here
+        });
+
+        self::deleted(function($model){
+            FileHelper::removeFile($model);
+        });
+    }
 }
